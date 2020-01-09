@@ -1,0 +1,43 @@
+
+
+{% extends "layout.html" %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}    
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Number</th>
+      <th scope="col">Title</th>
+      <th scope="col">status</th>
+      <th scope="col">owner</th>
+      <th scope="col">assignees</th>
+      <th scope="col">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pr in pullRequests %}
+      <tr>
+        <th scope="row">{{ pr.id }}</th>
+        <td>{{ pr.number }}</td>
+        <td>{{ pr.title }}</td>
+        <td>{{ pr.state }}</td>
+        <td>{{ pr.user.login }}</td>        
+        <td>{{ pr.assignees|length }}</td>   
+        <td>
+        {% for assignee in pr.assignees %} 
+          {{ assignee.login}} - 
+        {% endfor %}    
+        </td> 
+        <td>
+          <button type="button" class="btn btn-primary">VER</button>
+        
+        </td>
+      </tr>
+    {% endfor %} 
+  </tbody>
+</table>
+
+{% endblock %}

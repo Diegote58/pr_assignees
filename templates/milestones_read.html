@@ -1,0 +1,38 @@
+
+
+{% extends "layout.html" %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}    
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Number</th>
+      <th scope="col">Title</th>
+      <th scope="col">open PR</th>
+      <th scope="col">closed PR</th>
+      <th scope="col">URL</th>
+      <th scope="col">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for milestone in milestones %}
+      <tr>
+        <th scope="row">{{ milestone.id }}</th>
+        <td>{{ milestone.number }}</td>
+        <td>{{ milestone.title }}</td>
+        <td>{{ milestone.open_issues }}</td>
+        <td>{{ milestone.closed_issues }}</td>        
+        <td>{{ milestone.url }}</td>        
+        <td>
+          <button type="button" class="btn btn-danger">INACTIVE</button>
+        
+        </td>
+      </tr>
+    {% endfor %} 
+  </tbody>
+</table>
+
+{% endblock %}
