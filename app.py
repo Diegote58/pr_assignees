@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_restful import Resource, Api
 import json
 import routes
@@ -12,15 +12,25 @@ app = Flask(__name__)
 def getUsers():
     return render_template('user_read.html', users=userService.getUsers())
 
-@app.route('/users')
-def createUser():
-    userService.updateUser(id)
-    return redirect(url_for('users'))
 
-@app.route('/users/<int:id>')
+@app.route('/users/<int:id>',methods=['POST'])
 def updateUser(id):
     userService.updateUser(id)
-    return redirect(url_for('users'))
+    return getUsers()
+
+@app.route('/user/delete/<int:id>',methods=['POST'])
+def deleteUser(id):
+    userService.deleteUser(id)
+    return getUsers()   
+
+@app.route('/user',methods=['GET'])
+def createUserForm():
+    return render_template('user_create.html')
+
+@app.route('/user/create', methods=['POST'])
+def createUser():
+    userService.createUser(request)
+    return getUsers()
 
 #MILESTONES
 @app.route('/milestones')
